@@ -5,7 +5,7 @@ const { ipcRenderer } = require('electron')
 const { dialog, BrowserWindow, app } = require('electron').remote
 const remote = require('electron').remote
 
-console.log(remote.getGlobal('app_version'))
+/*console.log(remote.getGlobal('app_version'))
 
 let win = new BrowserWindow({
     width: 400,
@@ -35,4 +35,4 @@ dialog.showMessageBox({
     message: 'Are you sure you want to quit?', buttons: ['Quit', 'Cancel']
 }, (buttonIndex) => {
     if (buttonIndex === 0) app.quit()
-})
+})*/
