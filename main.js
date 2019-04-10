@@ -10,6 +10,14 @@ ipcMain.on('channel1', (e, args) => {
   e.sender.send('channel1', 'Mensaje recibido en el proceso principal')
 })
 
+ipcMain.on('sync-channel', (e, args) => {
+  console.log('Sync message received ::: ' + args)
+  setTimeout(() => {
+    e.returnValue = 'A syncrhonous response from the main process'
+  }, 3000)
+  
+})
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({

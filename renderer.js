@@ -14,3 +14,6 @@ ipcRenderer.on('channel1', (e, args) => {
 ipcRenderer.on('private', (e, args) => {
     console.log('Receiver private ::: ' + args)
 })
+
+let mainResponse = ipcRenderer.sendSync('sync-channel', 'Hola amigo sincrono')
+console.log('Main response ::: ' + mainResponse)
