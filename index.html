@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <style>
-    a{
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <style>
+    a {
       text-decoration: underline;
       cursor: pointer;
     }
-    </style>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    
-    <a onclick="openwin()">Go to google</a>
-    <a onclick="closewin()">Close google</a>
-    <a onclick="alertwin('An alert miau miau')">Alert google</a>
-    <a id="googlelink">Go to google by listener</a>
+  </style>
+</head>
 
-    <script>
-      let win
+<body>
+  <h1>Hello World!</h1>
 
-      document.getElementById('googlelink').addEventListener('click', () => {
-        win = window.open('https://google.es')
-      })
-      // You can also require other files to run in this process
-      require('./renderer.js')
-      const openwin = () => {
-        win = window.open('https://google.es')
-      }
-      const closewin = () => {
-        win.close();
-        console.log('closing child window')
-      }
-      const alertwin = (msg) => {
-        win.eval(`alert('${msg}'`)
-      }
-    </script>
-  </body>
+  <a onclick="openwin()">Go to google</a>
+  <a onclick="closewin()">Close google</a>
+  <a onclick="alertwin('An alert miau miau')">Alert google</a>
+  <a id="googlelink">Go to google by listener</a>
+  <br>
+  <hr>
+  <br>
+  <h1>webFrame</h1>
+  <button id="zoomup">Zoom+</button>
+  <button id="zoomdown">Zoom-</button>
+  <br>
+  <hr>
+  <br>
+  <textarea id="code" name="name" rows="10" cols="50"></textarea>
+  <button id="runjs">Run js</button>
+  <script>
+    const { webFrame } = require('electron')
+    let win
+
+    document.getElementById('googlelink').addEventListener('click', () => {
+      win = window.open('https://google.es')
+    })
+    // You can also require other files to run in this process
+    require('./renderer.js')
+    const openwin = () => {
+      win = window.open('https://google.es')
+    }
+    const closewin = () => {
+      win.close();
+      console.log('closing child window')
+    }
+    const alertwin = (msg) => {
+      win.eval(`alert('${msg}'`)
+    }
+
+
+    let zoom = 0
+    document.getElementById('zoomup').addEventListener('click', () => {
+      webFrame.setZoomLevel(++zoom)
+    })
+    document.getElementById('zoomdown').addEventListener('click', () => {
+      webFrame.setZoomLevel(--zoom)
+    })
+
+    document.getElementById('runjs').addEventListener('click', () => {
+      let code = document.getElementById("code").value
+      webFrame.executeJavaScript(code)
+    })
+  </script>
+</body>
+
 </html>

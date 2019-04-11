@@ -29,14 +29,14 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+   mainWindow.loadFile('index.html')
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('private', 'Message from MainProcess to mainWindow')
   })
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+ //mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
