@@ -9,6 +9,10 @@
       text-decoration: underline;
       cursor: pointer;
     }
+    webview {
+      height: 200px;
+      border: 1px solid black;
+    }
   </style>
 </head>
 
@@ -30,6 +34,14 @@
   <br>
   <textarea id="code" name="name" rows="10" cols="50"></textarea>
   <button id="runjs">Run js</button>
+  <br>
+  <hr>
+  <br>
+  <webview id="wb" src="page1.html"></webview>
+  <hr>
+  <input id="txt" type="text" placeholder="url to load">
+  <button id="load">Load</button>
+  <h4 id="currentPage"></h4>
   <script>
     const { webFrame } = require('electron')
     let win
@@ -62,6 +74,21 @@
     document.getElementById('runjs').addEventListener('click', () => {
       let code = document.getElementById("code").value
       webFrame.executeJavaScript(code)
+    })
+
+    const wb = document.getElementById("wb")
+    wb.addEventListener('did-start-loading', () => {
+      console.log('starting loading webview')
+    })
+    wb.addEventListener('did-stop-loading', () => {
+      console.log('stopping loading webview')
+      wb.insertCSS('body{background:red !important')
+    })
+    load.addEventListener('click', () => {
+      wb.loadURL(document.getElementById('txt').value)
+    })
+    wb.addEventListener('did-navigate', (e) => {
+      currentPage.innerHTML = e.url
     })
   </script>
 </body>
